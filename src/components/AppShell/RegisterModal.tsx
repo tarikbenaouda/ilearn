@@ -10,6 +10,8 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { toast } from "sonner"
+import { useAuthQuery } from "@/components/AppShell/queries/useAuth"
 
 export function RegisterModal() {
   const { view, close, switchTo } = useAuthModal()
@@ -19,15 +21,17 @@ export function RegisterModal() {
   const [password, setPassword] = useState("")
   const [confirm, setConfirm] = useState("")
   const [confirmError, setConfirmError] = useState(false)
+  const { register, isRegistering } = useAuthQuery()
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (password !== confirm) {
       setConfirmError(true)
+      toast.error("كلمتا المرور غير متطابقتين")
       return
     }
     setConfirmError(false)
-    // wire up your auth logic here
-    console.log("register", { firstName, lastName, email, password })
+    await register({ firstName, lastName, email, password })
+    close()
   }
 
   return (
@@ -127,10 +131,11 @@ export function RegisterModal() {
           </div>
 
           <Button
+            disabled={isRegistering}
             onClick={handleSubmit}
             className="mt-1 w-full bg-violet-600 text-white hover:bg-violet-700"
           >
-            إنشاء الحساب
+            {isRegistering ? "جارٍ إنشاء الحساب..." : "إنشاء الحساب"}
           </Button>
 
           <p className="text-center text-sm text-muted-foreground">

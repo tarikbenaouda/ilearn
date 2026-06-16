@@ -10,15 +10,17 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useAuthQuery } from "@/components/AppShell/queries/useAuth"
 
 export function LoginModal() {
   const { view, close, switchTo } = useAuthModal()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const { login, isLoggingIn } = useAuthQuery()
 
-  const handleSubmit = () => {
-    // wire up your auth logic here
-    console.log("login", { email, password })
+  const handleSubmit = async () => {
+    await login({ email, password })
+    close()
   }
 
   return (
@@ -62,10 +64,11 @@ export function LoginModal() {
           </div>
 
           <Button
+            disabled={isLoggingIn}
             onClick={handleSubmit}
             className="mt-1 w-full bg-violet-600 text-white hover:bg-violet-700"
           >
-            دخول
+            {isLoggingIn ? "جارٍ الدخول..." : "دخول"}
           </Button>
 
           <p className="text-center text-sm text-muted-foreground">
