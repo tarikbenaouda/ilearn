@@ -386,19 +386,18 @@ function ConceptChip({
     "inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium border transition-all duration-150 select-none"
 
   const variants: Record<ConceptStatus, string> = {
-    done: "bg-teal-50 border-teal-300 text-teal-900 cursor-pointer hover:-translate-y-0.5",
+    done: "bg-emerald-50 border-emerald-300 text-emerald-900 dark:bg-emerald-950/40 dark:border-emerald-800 dark:text-emerald-200 cursor-pointer hover:-translate-y-0.5",
     current:
-      "bg-violet-500 border-violet-600 text-white cursor-pointer hover:-translate-y-0.5 ring-2 ring-violet-300 ring-offset-1",
+      "bg-violet-500 border-violet-600 text-white dark:bg-violet-400 dark:border-violet-300 dark:text-slate-950 cursor-pointer hover:-translate-y-0.5 ring-2 ring-violet-300 dark:ring-violet-500 ring-offset-1 ring-offset-white dark:ring-offset-slate-950",
     unlocked:
-      "bg-violet-50 border-violet-200 text-violet-900 cursor-pointer hover:-translate-y-0.5",
+      "bg-fuchsia-50 border-fuchsia-300 text-fuchsia-900 dark:bg-fuchsia-950/40 dark:border-fuchsia-800 dark:text-fuchsia-200 cursor-pointer hover:-translate-y-0.5",
     locked:
-      "bg-transparent border-muted text-muted-foreground cursor-not-allowed opacity-40",
+      "bg-slate-100 border-slate-300 text-slate-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 cursor-not-allowed",
   }
 
   return (
     <div className={`${base} ${variants[status]}`}>
       {status === "done" && <span className="text-xs text-teal-500">✓</span>}
-      {status === "locked" && <span className="text-xs opacity-60">🔒</span>}
       {status === "current" && (
         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-white opacity-80" />
       )}
@@ -427,34 +426,31 @@ function LevelSection({
     <div className="w-full">
       {/* — dashed separator with level label — */}
       <div className="my-10 flex items-center gap-4 px-4">
-        <div className="flex-1 border-t border-dashed border-border opacity-50" />
+        <div className="flex-1 border-t border-dashed border-slate-200 dark:border-slate-800" />
         <div className="flex shrink-0 items-center gap-2">
-          {!open && <span className="text-xs opacity-40">🔒</span>}
           <span
-            className={`text-xs font-medium tracking-widest uppercase ${open ? "text-muted-foreground" : "text-muted-foreground opacity-50"}`}
+            className={`text-xs font-medium tracking-widest uppercase ${open ? "text-slate-600 dark:text-slate-300" : "text-slate-500 dark:text-slate-500"}`}
           >
             {LEVEL_NAMES[level]}
           </span>
           {open && (
             <span
-              className={`text-xs ${pct >= 80 ? "text-teal-600" : "text-muted-foreground"}`}
+              className={`text-xs ${pct >= 80 ? "text-emerald-600 dark:text-emerald-400" : "text-slate-500 dark:text-slate-400"}`}
             >
               {pct}%
             </span>
           )}
           {!open && (
-            <span className="text-xs text-muted-foreground opacity-40">
+            <span className="text-xs text-slate-500 dark:text-slate-500">
               · أكمل {Math.round(THRESHOLD * 100)}% من المستوى السابق
             </span>
           )}
         </div>
-        <div className="flex-1 border-t border-dashed border-border opacity-50" />
+        <div className="flex-1 border-t border-dashed border-slate-200 dark:border-slate-800" />
       </div>
 
       {/* — chips row — */}
-      <div
-        className={`flex flex-wrap justify-center gap-2.5 px-6 transition-opacity duration-300 ${!open ? "pointer-events-none opacity-25" : ""}`}
-      >
+      <div className="flex flex-wrap justify-center gap-2.5 px-6 transition-opacity duration-300">
         {lvlConcepts.map((c) => (
           <ConceptChip key={c.id} concept={c} status={getStatus(c, doneIds)} />
         ))}
@@ -472,14 +468,16 @@ function RecommendationBanner({ doneIds }: { doneIds: string[] }) {
   if (!rec) return null
 
   return (
-    <div className="mx-auto mt-8 flex max-w-md items-center justify-between gap-4 rounded-xl border border-violet-200 bg-violet-50 px-5 py-4">
+    <div className="mx-auto mt-8 flex max-w-md items-center justify-between gap-4 rounded-xl border border-violet-200 bg-violet-50 px-5 py-4 dark:border-violet-900/80 dark:bg-violet-950/35">
       <div>
-        <p className="mb-0.5 text-xs font-medium tracking-wide text-violet-500">
+        <p className="mb-0.5 text-xs font-medium tracking-wide text-violet-600 dark:text-violet-300">
           توصية الذكاء الاصطناعي
         </p>
-        <p className="text-sm font-semibold text-violet-900">{rec.label}</p>
+        <p className="text-sm font-semibold text-violet-950 dark:text-violet-100">
+          {rec.label}
+        </p>
       </div>
-      <button className="shrink-0 rounded-lg bg-violet-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-600">
+      <button className="shrink-0 rounded-lg bg-violet-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-600 dark:bg-violet-400 dark:text-slate-950 dark:hover:bg-violet-300">
         ابدأ الدرس
       </button>
     </div>
@@ -492,14 +490,14 @@ function RecommendationBanner({ doneIds }: { doneIds: string[] }) {
 
 function Navbar() {
   return (
-    <nav className="sticky top-0 z-10 flex h-13 items-center justify-between border-b border-border bg-background px-7">
+    <nav className="sticky top-0 z-10 flex h-13 items-center justify-between border-b border-slate-200 bg-white/90 px-7 text-slate-900 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90 dark:text-slate-100">
       <div className="flex items-center gap-2">
-        <div className="h-2 w-2 rounded-full bg-violet-500" />
+        <div className="h-2 w-2 rounded-full bg-violet-500 dark:bg-violet-400" />
         <span className="text-sm font-medium">رياضيات</span>
       </div>
       <div className="flex items-center gap-3">
-        <span className="text-sm text-muted-foreground">طارق</span>
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-violet-100 text-xs font-medium text-violet-800">
+        <span className="text-sm text-slate-600 dark:text-slate-300">طارق</span>
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-violet-100 text-xs font-medium text-violet-800 dark:bg-violet-900/50 dark:text-violet-200">
           طا
         </div>
       </div>
@@ -523,7 +521,7 @@ export default function DashboardPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       <Navbar />
       <main className="pb-24">
         <RecommendationBanner doneIds={doneIds} />
