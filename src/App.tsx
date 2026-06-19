@@ -11,7 +11,7 @@ export default function App() {
       <AppShell>
         <Routes>
           <Route path="/" element={<DashboardPage />} />
-          <Route path="/demo" element={<LessonDemoPage />} />
+          <Route path="/lessons/:id" element={<LessonDemoPage />} />
         <Route path="/test" element={<TestPage />} />
         </Routes>
         <Toaster position="bottom-left" />
