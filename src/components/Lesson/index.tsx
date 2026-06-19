@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useState } from 'react'
 import { LessonContext, type LessonContextValue } from './LessonContext'
 import { SidePanel } from './SidePanel'
 import { Problem } from './Problem'
@@ -11,10 +11,9 @@ import type { LessonData, LessonKeyword } from '@/types/lesson'
 interface LessonProps {
   data: LessonData
   onComplete: (score: number) => void
-  children: ReactNode
 }
 
-function Lesson({ data, onComplete, children }: LessonProps) {
+export function Lesson({ data, onComplete }: LessonProps) {
   const [hintsRevealed, setHintsRevealed] = useState(0)
   const [taskSubmitted, setTaskSubmitted] = useState(false)
   const [score, setScore] = useState(0)
@@ -45,18 +44,14 @@ function Lesson({ data, onComplete, children }: LessonProps) {
         <SidePanel />
         <main className="flex-1">
           <div className="max-w-2xl mx-auto px-8 py-12">
-            {children}
+            <Problem />
+            <Hints />
+            <Theory />
+            <Task />
+            <Feedback />
           </div>
         </main>
       </div>
     </LessonContext.Provider>
   )
 }
-
-Lesson.Problem = Problem
-Lesson.Hints = Hints
-Lesson.Theory = Theory
-Lesson.Task = Task
-Lesson.Feedback = Feedback
-
-export { Lesson }

@@ -5,25 +5,16 @@ import { useParams } from "react-router-dom"
 const lessons = [percentagesLesson, linearEqLesson]
 
 export function LessonDemoPage() {
-
-  const {id} = useParams()
+  const { id } = useParams()
   const lesson = lessons[Number(id)]
 
   return (
     <div className="min-h-full bg-background">
-
-
       <Lesson
         key={lesson.conceptId}
         data={lesson}
         onComplete={(score) => console.log("score:", score)}
-      >
-        <Lesson.Problem />
-        <Lesson.Hints />
-        <Lesson.Theory />
-        <Lesson.Task />
-        <Lesson.Feedback />
-      </Lesson>
+      />
     </div>
   )
 }
