@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner"
 import DashboardPage from "./pages/DashboardPage"
 import { LessonDemoPage } from "@/pages/LessonDemoPage"
 import { AppShell } from "@/components/AppShell"
+import TestPage from "./pages/TestPage"
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/demo" element={<LessonDemoPage />} />
+        <Route path="/test" element={<TestPage />} />
         </Routes>
         <Toaster position="bottom-left" />
       </AppShell>

@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { LessonContext, type LessonContextValue } from './LessonContext'
-import { LeftPanel } from './LeftPanel'
+import { SidePanel } from './SidePanel'
 import { Problem } from './Problem'
 import { Hints } from './Hints'
 import { Theory } from './Theory'
@@ -41,9 +41,9 @@ function Lesson({ data, onComplete, children }: LessonProps) {
 
   return (
     <LessonContext.Provider value={ctx}>
-      <div className="flex min-h-screen">
-        <LeftPanel />
-        <main className="flex-1 overflow-y-auto">
+      <div className="flex h-full">
+        <SidePanel />
+        <main className="flex-1">
           <div className="max-w-2xl mx-auto px-8 py-12">
             {children}
           </div>

@@ -14,7 +14,6 @@ interface AppShellProps {
   user?: AppShellUser
   onLogout?: HeaderProps["onLogout"]
   className?: string
-  contentClassName?: string
 }
 
 export function AppShell({
@@ -22,7 +21,6 @@ export function AppShell({
   user,
   onLogout,
   className,
-  contentClassName,
 }: AppShellProps) {
   return (
     <AuthModalProvider>
@@ -30,7 +28,7 @@ export function AppShell({
         <Header user={user} onLogout={onLogout} />
 
         <main
-          className={cn("min-h-0 flex-1 overflow-y-auto", contentClassName)}
+          className="min-h-0 flex-1 overflow-y-auto"
         >
           {children}
         </main>

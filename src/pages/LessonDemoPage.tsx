@@ -12,25 +12,7 @@ export function LessonDemoPage() {
 
   return (
     <div className="min-h-full bg-background">
-      {/* Minimal navbar / switcher */}
-      {/* <header className="sticky top-0 z-10 flex h-12 items-center gap-3 border-b border-border bg-background/95 px-6 backdrop-blur-sm">
-        <span className="text-sm text-muted-foreground">اختر درساً:</span>
-        {lessons.map((l, i) => (
-          <Button
-            key={l.conceptId}
-            variant={activeIdx === i ? "default" : "outline"}
-            size="sm"
-            onClick={() => setActiveIdx(i)}
-            className={
-              activeIdx === i
-                ? "bg-violet-600 text-white hover:bg-violet-700"
-                : ""
-            }
-          >
-            {l.title}
-          </Button>
-        ))}
-      </header> */}
+
 
       <Lesson
         key={lesson.conceptId}

@@ -11,13 +11,13 @@ import "./index.css"
 const queryClient = new QueryClient()
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <DirectionProvider dir="rtl">
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
-      </QueryClientProvider>
-    </DirectionProvider>
-  </StrictMode>
+    <StrictMode>
+        <DirectionProvider dir="rtl">
+            <QueryClientProvider client={queryClient}>
+                <ThemeProvider>
+                    <App />
+                </ThemeProvider>
+            </QueryClientProvider>
+        </DirectionProvider>
+    </StrictMode>
 )
