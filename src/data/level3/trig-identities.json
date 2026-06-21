@@ -1,0 +1,58 @@
+{
+  "id": "trig-identities",
+  "label": "متطابقات المثلثات",
+  "level": 3,
+  "problem": {
+    "scenario": "يدّعي طالب أن $\\sin(A+B) = \\sin A + \\sin B$. هل هذا صحيح؟ أثبت أو انفِ باستخدام $A = 30°$، $B = 60°$.",
+    "hints": [
+      "احسب الطرف الأيسر $\\sin(30° + 60°) = \\sin(90°) = 1$.",
+      "احسب الطرف الأيمن $\\sin(30°) + \\sin(60°) = \\frac{1}{2} + \\frac{\\sqrt{3}}{2} \\approx 1.366$.",
+      "الطرفان لا يتساويان، فالادعاء خاطئ. الصيغة الصحيحة: $\\sin(A+B) = \\sin A \\cos B + \\cos A \\sin B$."
+    ]
+  },
+  "theory": {
+    "sections": [
+      {
+        "id": "pythagorean-ids",
+        "title": "المتطابقات الفيثاغورية",
+        "content": "$$\\sin^2\\theta + \\cos^2\\theta = 1$$ $$1 + \\tan^2\\theta = \\sec^2\\theta$$ $$1 + \\cot^2\\theta = \\csc^2\\theta$$",
+        "example": "إثبات $\\tan^2\\theta + 1 = \\sec^2\\theta$: اقسم $\\sin^2\\theta + \\cos^2\\theta = 1$ على $\\cos^2\\theta$."
+      },
+      {
+        "id": "sum-formulas",
+        "title": "صيغ الجمع والفرق",
+        "content": "$$\\sin(A \\pm B) = \\sin A \\cos B \\pm \\cos A \\sin B$$ $$\\cos(A \\pm B) = \\cos A \\cos B \\mp \\sin A \\sin B$$",
+        "example": "$$\\cos(75°) = \\cos(45°+30°) = \\cos 45° \\cos 30° - \\sin 45° \\sin 30°$$ $$= \\frac{\\sqrt{2}}{2} \\cdot \\frac{\\sqrt{3}}{2} - \\frac{\\sqrt{2}}{2} \\cdot \\frac{1}{2} = \\frac{\\sqrt{6}-\\sqrt{2}}{4}$$"
+      },
+      {
+        "id": "double-angle",
+        "title": "صيغ الزاوية المضاعفة",
+        "content": "$$\\sin(2\\theta) = 2\\sin\\theta\\cos\\theta$$ $$\\cos(2\\theta) = \\cos^2\\theta - \\sin^2\\theta = 1-2\\sin^2\\theta = 2\\cos^2\\theta-1$$",
+        "example": "$$\\sin(60°) = 2\\sin(30°)\\cos(30°) = 2 \\cdot \\frac{1}{2} \\cdot \\frac{\\sqrt{3}}{2} = \\frac{\\sqrt{3}}{2} \\checkmark$$"
+      }
+    ]
+  },
+  "mcq": {
+    "question": "إذا كان $\\sin\\theta = \\frac{3}{5}$، فما قيمة $\\sin(2\\theta)$؟",
+    "choices": [
+      {
+        "id": "a",
+        "text": "$\\frac{6}{5}$"
+      },
+      {
+        "id": "b",
+        "text": "$\\frac{24}{25}$"
+      },
+      {
+        "id": "c",
+        "text": "$\\frac{9}{25}$"
+      },
+      {
+        "id": "d",
+        "text": "$\\frac{7}{25}$"
+      }
+    ],
+    "correct": "b",
+    "explanation": "$\\cos\\theta = \\frac{4}{5}$. $$\\sin(2\\theta) = 2\\sin\\theta\\cos\\theta = 2 \\cdot \\frac{3}{5} \\cdot \\frac{4}{5} = \\frac{24}{25}$$"
+  }
+}

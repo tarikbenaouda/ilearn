@@ -1,8 +1,6 @@
 import type { LessonData } from '../types/lesson'
-import level1 from './level1.json'
-import level2 from './level2.json'
-import level3 from './level3.json'
-import level4 from './level4.json'
+
+const lessonModules = import.meta.glob('./level*/*.json', { eager: true, import: 'default' })
 
 const normalizeLesson = (data: any): LessonData => {
   if (data.conceptId && data.task && data.task.type) {
@@ -37,12 +35,7 @@ const normalizeLesson = (data: any): LessonData => {
   }
 }
 
-export const allLessons: LessonData[] = [
-  ...level1.map(normalizeLesson),
-  ...level2.lessons.map(normalizeLesson),
-  ...level3.lessons.map(normalizeLesson),
-  ...level4.map(normalizeLesson),
-]
+export const allLessons: LessonData[] = Object.values(lessonModules).map(normalizeLesson)
 
 export const getLessonById = (id: string): LessonData | undefined => {
   return allLessons.find(lesson => lesson.conceptId === id)
