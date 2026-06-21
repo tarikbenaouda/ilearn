@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
 import DashboardPage from "./pages/DashboardPage"
+import MathPage from "./pages/MathPage"
 import { LessonDemoPage } from "@/pages/LessonDemoPage"
 import { HomePage } from "@/pages/HomePage"
 import { AppShell } from "@/components/AppShell"
@@ -13,6 +14,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/courses/maths" element={<MathPage />} />
           <Route path="/lessons/:id" element={<LessonDemoPage />} />
           <Route path="/test" element={<TestPage />} />
         </Routes>
