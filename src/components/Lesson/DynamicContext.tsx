@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLessonContext } from './LessonContext'
-import { MiniConceptMap } from './MiniConceptMap'
 import { MathBlock } from '@/components/MathBlock'
 
 const fade = {
@@ -61,11 +60,7 @@ export function DynamicContext() {
           </motion.div>
         )}
 
-        {mode === 'map' && (
-          <motion.div key="map" {...fade} className="absolute inset-0 overflow-y-auto">
-            <MiniConceptMap />
-          </motion.div>
-        )}
+
       </AnimatePresence>
     </div>
   )

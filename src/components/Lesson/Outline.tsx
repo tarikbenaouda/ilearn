@@ -3,7 +3,7 @@ import { useLessonContext, SECTION_LABELS } from './LessonContext'
 const SECTIONS = ['problem', 'hints', 'theory', 'task', 'feedback']
 
 export function Outline() {
-  const { activeSection, taskSubmitted } = useLessonContext()
+  const { activeSection, taskSubmitted, data } = useLessonContext()
 
   const scrollTo = (id: string) => {
     document.getElementById(`lesson-section-${id}`)?.scrollIntoView({ behavior: 'smooth' })
@@ -11,7 +11,12 @@ export function Outline() {
 
   return (
     <div className="flex flex-col gap-1 py-4">
-      <p className="text-xs text-muted-foreground font-medium px-4 mb-2 tracking-wide">محتوى الدرس</p>
+      <div className="px-5 mb-6 mt-2">
+        <h2 className="text-xl font-black text-violet-900 dark:text-violet-300 tracking-tight leading-snug">
+          {data.title}
+        </h2>
+        <div className="h-1.5 w-10 bg-gradient-to-r from-violet-400 to-fuchsia-400 rounded-full mt-3"></div>
+      </div>
       {SECTIONS.map((id) => {
         const isActive = activeSection === id
         const isDisabled = id === 'feedback' && !taskSubmitted
