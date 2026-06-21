@@ -109,8 +109,7 @@ function getLevelProgress(level: number, doneIds: string[]): number {
 }
 
 function isLevelOpen(level: number, doneIds: string[]): boolean {
-  if (level === 1) return true
-  return getLevelProgress(level - 1, doneIds) >= THRESHOLD
+  return true
 }
 
 function getStatus(concept: Concept, doneIds: string[]): ConceptStatus {
@@ -128,27 +127,22 @@ function getRecommendation(doneIds: string[]): Concept | null {
 // CONCEPT CHIP
 // ============================================================
 
-function ConceptChip({ concept, status }: { concept: Concept; status: ConceptStatus }) {
+function ConceptChip({ concept, status, onClick }: { concept: Concept; status: ConceptStatus; onClick?: () => void }) {
   const base =
     "inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium border transition-all duration-150 select-none"
 
+  const grayStyle = "bg-slate-100 border-slate-300 text-slate-600 cursor-pointer hover:-translate-y-0.5 hover:bg-slate-200 hover:text-slate-900"
+  
   const variants: Record<ConceptStatus, string> = {
     done: "bg-emerald-50 border-emerald-300 text-emerald-900 cursor-pointer hover:-translate-y-0.5",
-    current:
-      "bg-violet-500 border-violet-600 text-white cursor-pointer hover:-translate-y-0.5 ring-2 ring-violet-300 ring-offset-1 ring-offset-white",
-    unlocked:
-      "bg-fuchsia-50 border-fuchsia-300 text-fuchsia-900 cursor-pointer hover:-translate-y-0.5",
-    locked:
-      "bg-slate-100 border-slate-300 text-slate-600 cursor-not-allowed opacity-60",
+    current: grayStyle,
+    unlocked: grayStyle,
+    locked: grayStyle,
   }
 
   return (
-    <div className={`${base} ${variants[status]}`}>
+    <div className={`${base} ${variants[status]}`} onClick={onClick}>
       {status === "done" && <span className="text-xs text-emerald-500">✓</span>}
-      {status === "current" && (
-        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-white opacity-80" />
-      )}
-      {status === "locked" && <span className="text-xs">🔒</span>}
       {concept.label}
     </div>
   )
@@ -158,7 +152,7 @@ function ConceptChip({ concept, status }: { concept: Concept; status: ConceptSta
 // LEVEL SECTION
 // ============================================================
 
-function LevelSection({ level, doneIds }: { level: 1 | 2 | 3 | 4; doneIds: string[] }) {
+function LevelSection({ level, doneIds, onConceptClick }: { level: 1 | 2 | 3 | 4; doneIds: string[]; onConceptClick: (id: string) => void }) {
   const [expanded, setExpanded] = useState(true)
   const open = isLevelOpen(level, doneIds)
   const progress = getLevelProgress(level, doneIds)
@@ -232,7 +226,7 @@ function LevelSection({ level, doneIds }: { level: 1 | 2 | 3 | 4; doneIds: strin
           className="flex flex-wrap justify-center gap-2.5 px-6 pb-2"
         >
           {lvlConcepts.map((c) => (
-            <ConceptChip key={c.id} concept={c} status={getStatus(c, doneIds)} />
+            <ConceptChip key={c.id} concept={c} status={getStatus(c, doneIds)} onClick={() => onConceptClick(c.id)} />
           ))}
         </motion.div>
       )}
@@ -244,7 +238,7 @@ function LevelSection({ level, doneIds }: { level: 1 | 2 | 3 | 4; doneIds: strin
 // AI RECOMMENDATION BANNER
 // ============================================================
 
-function RecommendationBanner({ doneIds }: { doneIds: string[] }) {
+function RecommendationBanner({ doneIds, onConceptClick }: { doneIds: string[]; onConceptClick: (id: string) => void }) {
   const rec = getRecommendation(doneIds)
   if (!rec) return null
 
@@ -267,6 +261,7 @@ function RecommendationBanner({ doneIds }: { doneIds: string[] }) {
         <Button
           size="sm"
           className="shrink-0 bg-violet-600 hover:bg-violet-700 text-white rounded-xl font-medium"
+          onClick={() => onConceptClick(rec.id)}
         >
           ابدأ الآن ←
         </Button>
@@ -290,6 +285,10 @@ export default function MathPage() {
     "fractions",
     "decimals",
   ]
+
+  const handleConceptClick = (id: string) => {
+    navigate(`/lessons/${id}`)
+  }
 
   const totalConcepts = concepts.length
   const totalDone = doneIds.length
@@ -352,11 +351,11 @@ export default function MathPage() {
 
       {/* ── Main content ──────────────────────────────────── */}
       <div className="max-w-3xl mx-auto px-4 -mt-6">
-        <RecommendationBanner doneIds={doneIds} />
+        <RecommendationBanner doneIds={doneIds} onConceptClick={handleConceptClick} />
 
         <div className="mt-8 pb-24">
           {([1, 2, 3, 4] as const).map((level) => (
-            <LevelSection key={level} level={level} doneIds={doneIds} />
+            <LevelSection key={level} level={level} doneIds={doneIds} onConceptClick={handleConceptClick} />
           ))}
         </div>
       </div>

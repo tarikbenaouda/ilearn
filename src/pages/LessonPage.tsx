@@ -1,12 +1,14 @@
 import { Lesson } from "@/components/Lesson"
-import { percentagesLesson, linearEqLesson } from "@/data/demoLessons"
-import { useParams } from "react-router-dom"
+import { getLessonById } from "@/data/allLessons"
+import { useParams, Navigate } from "react-router-dom"
 
-const lessons = [percentagesLesson, linearEqLesson]
-
-export function LessonDemoPage() {
+export function LessonPage() {
   const { id } = useParams()
-  const lesson = lessons[Number(id)]
+  const lesson = getLessonById(id || "")
+
+  if (!lesson) {
+    return <Navigate to="/courses/maths" replace />
+  }
 
   return (
     <div className="min-h-full bg-background">

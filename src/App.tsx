@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
 import DashboardPage from "./pages/DashboardPage"
 import MathPage from "./pages/MathPage"
-import { LessonDemoPage } from "@/pages/LessonDemoPage"
+import { LessonPage } from "@/pages/LessonPage"
 import { HomePage } from "@/pages/HomePage"
 import { AppShell } from "@/components/AppShell"
 import TestPage from "./pages/TestPage"
@@ -15,7 +15,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/courses/maths" element={<MathPage />} />
-          <Route path="/lessons/:id" element={<LessonDemoPage />} />
+          <Route path="/lessons/:id" element={<LessonPage />} />
           <Route path="/test" element={<TestPage />} />
         </Routes>
         <Toaster position="bottom-left" />
