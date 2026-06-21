@@ -3,18 +3,19 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useLessonContext } from './LessonContext'
 import { MathBlock } from '@/components/MathBlock'
 import { Button } from '@/components/ui/button'
+import type { HintsBlock } from '@/types/lesson'
 
-export function Hints() {
-  const { data, hintsRevealed, setHintsRevealed, setActiveSection, setActiveFigureSection } = useLessonContext()
+export function Hints({ block }: { block: HintsBlock }) {
+  const { hintsRevealed, setHintsRevealed, setActiveSection, setActiveFigureSection } = useLessonContext()
   const ref = useRef<HTMLDivElement>(null)
-  const total = data.hints.length
+  const total = block.items.length
 
   useEffect(() => {
     if (!ref.current) return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setActiveSection('hints')
+          setActiveSection(block.id)
           setActiveFigureSection(null)
         }
       },
@@ -29,8 +30,12 @@ export function Hints() {
   }
 
   return (
-    <section id="lesson-section-hints" ref={ref} className="mb-12">
-      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">التلميحات</p>
+    <section id={`lesson-section-${block.id}`} ref={ref} className="mb-12 scroll-mt-24">
+      {block.header && (
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">
+          {block.header}
+        </p>
+      )}
 
       <div className="flex flex-col gap-3">
         <AnimatePresence>
@@ -46,7 +51,7 @@ export function Hints() {
                 تلميح {i + 1} / {total}
               </span>
               <div className="text-sm text-foreground leading-relaxed">
-                <MathBlock content={data.hints[i]} />
+                <MathBlock content={block.items[i]} />
               </div>
             </motion.div>
           ))}

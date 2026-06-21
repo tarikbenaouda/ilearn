@@ -1,4 +1,4 @@
-export type TaskType = 'mcq' | 'fill' | 'interactive'
+export type TaskType = "mcq" | "fill"
 
 export interface LessonExample {
   problem: string
@@ -6,32 +6,11 @@ export interface LessonExample {
 }
 
 export interface LessonFigure {
-  type: 'image' | 'component'
+  type: "image" | "component"
   src?: string
   componentId?: string
   caption?: string
 }
-
-export interface MCQTask {
-  type: 'mcq'
-  question: string
-  options: string[]
-  answer: number
-}
-
-export interface FillTask {
-  type: 'fill'
-  question: string
-  answer: string
-  tolerance?: number
-}
-
-export interface InteractiveTask {
-  type: 'interactive'
-  componentId: string
-}
-
-export type Task = MCQTask | FillTask | InteractiveTask
 
 export interface LessonKeyword {
   term: string
@@ -39,36 +18,85 @@ export interface LessonKeyword {
   example?: string
 }
 
-export interface LessonSection {
+export interface BaseBlock {
   id: string
-  title: string
+  header?: string
+}
+
+export interface TextBlock extends BaseBlock {
+  type: "text"
+  title?: string
   content: string
   figure?: LessonFigure
   keywords?: LessonKeyword[]
   examples?: LessonExample[]
 }
 
+export interface HintsBlock extends BaseBlock {
+  type: "hints"
+  items: string[]
+}
+
+export interface MCQTaskBlock extends BaseBlock {
+  type: "mcq"
+  question: string
+  options: string[]
+  answer: number
+}
+
+export interface FillTaskBlock extends BaseBlock {
+  type: "fill"
+  question: string
+  answer: string
+  tolerance?: number
+}
+
+export interface FeedbackBlock extends BaseBlock {
+  type: "feedback"
+  successMessage: string
+  explanation: string
+}
+
+export type LessonBlock =
+  | TextBlock
+  | HintsBlock
+  | MCQTaskBlock
+  | FillTaskBlock
+  | FeedbackBlock
+
 export interface LessonData {
   conceptId: string
   title: string
-  prerequisites: string[]
-  unlocks: string[]
-
-  problem: {
+  blocks: LessonBlock[]
+  prerequisites?: string[]
+  unlocks?: string[]
+  problem?: {
     scenario: string
     figure?: LessonFigure
   }
-
-  hints: string[]
-
-  theory: {
-    sections: LessonSection[]
+  hints?: string[]
+  theory?: {
+    sections: Array<{
+      id: string
+      title: string
+      content: string
+      figure?: LessonFigure
+      keywords?: LessonKeyword[]
+      examples?: LessonExample[]
+    }>
   }
-
-  task: Task
-
+  task?: {
+    type: TaskType
+    question: string
+    options?: string[]
+    answer: number | string
+    tolerance?: number
+    id?: string
+  }
   feedback?: {
     successMessage: string
     explanation: string
+    type?: "feedback"
+    id?: string
   }
 }

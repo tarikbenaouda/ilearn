@@ -1,58 +1,31 @@
 {
-  "id": "intro-trig",
-  "label": "مقدمة المثلثات",
-  "level": 3,
-  "problem": {
-    "scenario": "مهندس يقف على بُعد $50$ م من برج. قاس زاوية الارتفاع إلى قمة البرج فوجدها $30°$. ما ارتفاع البرج؟",
-    "hints": [
-      "يتشكّل مثلث قائم: الضلع المجاور $= 50$ م، والزاوية $= 30°$. أيّ نسبة مثلثية تربط الضلع المقابل بالمجاور؟",
-      "$$\\tan(\\theta) = \\frac{\\text{المقابل}}{\\text{المجاور}}$$",
-      "$$\\tan(30°) = \\frac{h}{50} \\Rightarrow h = 50 \\times \\tan(30°) = 50 \\times \\frac{1}{\\sqrt{3}} \\approx 28.9 \\text{ م}$$"
-    ]
-  },
-  "theory": {
-    "sections": [
-      {
-        "id": "trig-ratios",
-        "title": "النسب المثلثية الأساسية",
-        "content": "في مثلث قائم بزاوية $\\theta$: $$\\sin\\theta = \\frac{\\text{المقابل}}{\\text{الوتر}} \\quad \\cos\\theta = \\frac{\\text{المجاور}}{\\text{الوتر}} \\quad \\tan\\theta = \\frac{\\text{المقابل}}{\\text{المجاور}}$$",
-        "example": "في مثلث أضلاعه $3, 4, 5$ والزاوية $\\theta$ مقابل الضلع $3$: $\\sin\\theta = \\frac{3}{5}$، $\\cos\\theta = \\frac{4}{5}$."
-      },
-      {
-        "id": "special-angles",
-        "title": "الزوايا الخاصة",
-        "content": "$$\\begin{array}{c|ccc} \\theta & 30° & 45° & 60° \\\\ \\hline \\sin & \\frac{1}{2} & \\frac{\\sqrt{2}}{2} & \\frac{\\sqrt{3}}{2} \\\\ \\cos & \\frac{\\sqrt{3}}{2} & \\frac{\\sqrt{2}}{2} & \\frac{1}{2} \\\\ \\tan & \\frac{1}{\\sqrt{3}} & 1 & \\sqrt{3} \\end{array}$$",
-        "example": "$$\\sin(60°) = \\frac{\\sqrt{3}}{2} \\approx 0.866$$"
-      },
-      {
-        "id": "pythagorean-identity",
-        "title": "المتطابقة الأساسية",
-        "content": "$$\\sin^2\\theta + \\cos^2\\theta = 1$$",
-        "example": "إذا كان $\\sin\\theta = \\frac{3}{5}$، فـ $\\cos\\theta = \\sqrt{1 - \\frac{9}{25}} = \\frac{4}{5}$."
-      }
-    ]
-  },
-  "mcq": {
-    "question": "في مثلث قائم، إذا كان $\\cos\\theta = \\frac{5}{13}$، فما قيمة $\\tan\\theta$؟",
-    "choices": [
-      {
-        "id": "a",
-        "text": "$\\frac{12}{13}$"
-      },
-      {
-        "id": "b",
-        "text": "$\\frac{5}{12}$"
-      },
-      {
-        "id": "c",
-        "text": "$\\frac{12}{5}$"
-      },
-      {
-        "id": "d",
-        "text": "$\\frac{13}{5}$"
-      }
-    ],
-    "correct": "c",
-    "explanation": "$\\cos\\theta = \\frac{5}{13}$ فالمجاور $=5$ والوتر $=13$. المقابل $= \\sqrt{169-25} = 12$. $$\\tan\\theta = \\frac{12}{5}$$"
-  }
+  "conceptId": "intro-trig",
+  "title": "مقدمة المثلثات",
+  "blocks": [
+    {
+      "type": "text",
+      "id": "problem",
+      "header": "المشكلة",
+      "content": "مهندس يقف على بُعد $50$ م من برج. قاس زاوية الارتفاع إلى قمة البرج فوجدها $30°$. ما ارتفاع البرج؟"
+    },
+    {
+      "type": "text",
+      "id": "theory-1",
+      "header": "النظرية",
+      "title": "النسب المثلثية الأساسية",
+      "content": "في مثلث قائم بزاوية $\\theta$: $$\\sin\\theta = \\frac{\\text{المقابل}}{\\text{الوتر}} \\quad \\cos\\theta = \\frac{\\text{المجاور}}{\\text{الوتر}} \\quad \\tan\\theta = \\frac{\\text{المقابل}}{\\text{المجاور}}$$"
+    },
+    {
+      "type": "text",
+      "id": "theory-2",
+      "title": "الزوايا الخاصة",
+      "content": "$$\\begin{array}{c|ccc} \\theta & 30° & 45° & 60° \\\\ \\hline \\sin & \\frac{1}{2} & \\frac{\\sqrt{2}}{2} & \\frac{\\sqrt{3}}{2} \\\\ \\cos & \\frac{\\sqrt{3}}{2} & \\frac{\\sqrt{2}}{2} & \\frac{1}{2} \\\\ \\tan & \\frac{1}{\\sqrt{3}} & 1 & \\sqrt{3} \\end{array}$$"
+    },
+    {
+      "type": "text",
+      "id": "theory-3",
+      "title": "المتطابقة الأساسية",
+      "content": "$$\\sin^2\\theta + \\cos^2\\theta = 1$$"
+    }
+  ]
 }

@@ -8,22 +8,74 @@
  * Example: "the formula is $E = mc^2$"
  */
 
-import type { LessonData } from '@/types/lesson'
+import type { LessonData } from "@/types/lesson"
 
 export const lessonTemplate: LessonData = {
   // ─── Identity ────────────────────────────────────────────────────────────────
 
   /** [required] Unique identifier for this lesson/concept. Used as a React key and for linking. */
-  conceptId: 'my-concept',
+  conceptId: "my-concept",
 
   /** [required] Human-readable title shown in the outline and navigation. */
-  title: 'Lesson Title',
+  title: "Lesson Title",
+
+  /** [required] The rendered lesson sections used by the current UI. */
+  blocks: [
+    {
+      type: "text",
+      id: "problem",
+      header: "المشكلة",
+      content:
+        "Describe the real-world situation the student needs to solve. You can include math: $x + 2 = 5$. Do not give away the method — let the student think first.",
+    },
+    {
+      type: "hints",
+      id: "hints",
+      header: "تلميحات",
+      items: [
+        "A broad nudge in the right direction.",
+        "A more concrete hint, maybe referencing a formula: $\\frac{a}{b}$.",
+        "The most specific hint, almost spelling out the approach.",
+      ],
+    },
+    {
+      type: "text",
+      id: "section-intro",
+      header: "النظرية",
+      title: "What is it?",
+      content:
+        "Explain the core concept here. Math example: $a^2 + b^2 = c^2$. If you list a term in keywords, mention it in content so it becomes clickable.",
+    },
+    {
+      type: "text",
+      id: "section-method",
+      header: "النظرية",
+      title: "How to apply it",
+      content: "Second section — add as many sections as needed.",
+    },
+    {
+      type: "mcq",
+      id: "task",
+      header: "التمرين",
+      question: "The question text. Supports KaTeX: $3x = 9$, what is $x$?",
+      options: ["1", "2", "3", "4"],
+      answer: 2,
+    },
+    {
+      type: "feedback",
+      id: "feedback",
+      header: "النتيجة",
+      successMessage: "Great job! You mastered this concept.",
+      explanation:
+        "Here is why the answer is correct, with math if needed: $x = \\frac{9}{3} = 3$.",
+    },
+  ],
 
   /** [required] conceptIds that must be completed before this lesson is accessible. */
-  prerequisites: ['some-other-concept'],
+  prerequisites: ["some-other-concept"],
 
   /** [required] conceptIds that become available after this lesson is completed. */
-  unlocks: ['next-concept'],
+  unlocks: ["next-concept"],
 
   // ─── Problem ─────────────────────────────────────────────────────────────────
 
@@ -33,16 +85,16 @@ export const lessonTemplate: LessonData = {
    */
   problem: {
     scenario:
-      'Describe the real-world situation the student needs to solve. '
-      + 'You can include math: $x + 2 = 5$. '
-      + 'Do not give away the method — let the student think first.',
+      "Describe the real-world situation the student needs to solve. " +
+      "You can include math: $x + 2 = 5$. " +
+      "Do not give away the method — let the student think first.",
 
     // [optional] A visual to accompany the scenario.
     figure: {
-      type: 'image',          // 'image' | 'component'
-      src: '/figures/my-image.svg',   // used when type === 'image'
+      type: "image", // 'image' | 'component'
+      src: "/figures/my-image.svg", // used when type === 'image'
       // componentId: 'MyFigure',     // used when type === 'component'
-      caption: 'Optional caption text',
+      caption: "Optional caption text",
     },
   },
 
@@ -54,9 +106,9 @@ export const lessonTemplate: LessonData = {
    * Minimum 1 hint recommended; 3 is the sweet spot.
    */
   hints: [
-    'A broad nudge in the right direction.',
-    'A more concrete hint, maybe referencing a formula: $\\frac{a}{b}$.',
-    'The most specific hint, almost spelling out the approach.',
+    "A broad nudge in the right direction.",
+    "A more concrete hint, maybe referencing a formula: $\\frac{a}{b}$.",
+    "The most specific hint, almost spelling out the approach.",
   ],
 
   // ─── Theory ──────────────────────────────────────────────────────────────────
@@ -70,10 +122,10 @@ export const lessonTemplate: LessonData = {
     sections: [
       {
         /** [required] Unique ID used for scroll-tracking and figure linking. */
-        id: 'section-intro',
+        id: "section-intro",
 
         /** [required] Section heading. */
-        title: 'What is it?',
+        title: "What is it?",
 
         /**
          * [required] Main explanatory text. Supports KaTeX math.
@@ -81,22 +133,22 @@ export const lessonTemplate: LessonData = {
          * and show a definition popover (see `keywords` below).
          */
         content:
-          'Explain the core concept here. Math example: $a^2 + b^2 = c^2$. '
-          + 'If you list a term in keywords, mention it in content so it becomes clickable.',
+          "Explain the core concept here. Math example: $a^2 + b^2 = c^2$. " +
+          "If you list a term in keywords, mention it in content so it becomes clickable.",
 
         // [optional] A visual that sticks in the side panel when this section is in view.
         figure: {
-          type: 'image',
-          src: '/figures/section-image.svg',
-          caption: 'Figure caption',
+          type: "image",
+          src: "/figures/section-image.svg",
+          caption: "Figure caption",
         },
 
         // [optional] Clickable terms — clicking them shows definition + example in the side panel.
         keywords: [
           {
-            term: 'keyword term',           // must appear verbatim in `content` to be highlighted
-            definition: 'Short definition of the term.',
-            example: '$formula = value$',   // optional KaTeX example
+            term: "keyword term", // must appear verbatim in `content` to be highlighted
+            definition: "Short definition of the term.",
+            example: "$formula = value$", // optional KaTeX example
           },
         ],
 
@@ -104,19 +156,19 @@ export const lessonTemplate: LessonData = {
         examples: [
           {
             problem: 'State the problem, e.g. "What is 30% of 200?"',
-            solution: '$\\frac{30}{100} \\times 200 = 60$',
+            solution: "$\\frac{30}{100} \\times 200 = 60$",
           },
         ],
       },
 
       {
-        id: 'section-method',
-        title: 'How to apply it',
-        content: 'Second section — add as many sections as needed.',
+        id: "section-method",
+        title: "How to apply it",
+        content: "Second section — add as many sections as needed.",
         examples: [
           {
-            problem: 'Another worked example problem.',
-            solution: 'The solution, optionally with math: $x = 7$.',
+            problem: "Another worked example problem.",
+            solution: "The solution, optionally with math: $x = 7$.",
           },
         ],
       },
@@ -136,10 +188,10 @@ export const lessonTemplate: LessonData = {
 
   // ── MCQ example (pick one) ──
   task: {
-    type: 'mcq',
-    question: 'The question text. Supports KaTeX: $3x = 9$, what is $x$?',
-    options: ['1', '2', '3', '4'],   // array of answer choices
-    answer: 2,                        // 0-based index of the correct option
+    type: "mcq",
+    question: "The question text. Supports KaTeX: $3x = 9$, what is $x$?",
+    options: ["1", "2", "3", "4"], // array of answer choices
+    answer: 2, // 0-based index of the correct option
   },
 
   // ── Fill example (uncomment to use) ──
@@ -164,8 +216,8 @@ export const lessonTemplate: LessonData = {
    * explanation always appears and supports KaTeX.
    */
   feedback: {
-    successMessage: 'Great job! You mastered this concept.',
+    successMessage: "Great job! You mastered this concept.",
     explanation:
-      'Here is why the answer is correct, with math if needed: $x = \\frac{9}{3} = 3$.',
+      "Here is why the answer is correct, with math if needed: $x = \\frac{9}{3} = 3$.",
   },
 }

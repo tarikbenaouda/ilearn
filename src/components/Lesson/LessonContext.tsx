@@ -33,18 +33,4 @@ export function useLessonContext(): LessonContextValue {
   return ctx
 }
 
-export const SECTION_IDS = {
-  problem: 'problem',
-  hints: 'hints',
-  theory: 'theory',
-  task: 'task',
-  feedback: 'feedback',
-} as const
 
-export const SECTION_LABELS: Record<string, string> = {
-  problem: 'المشكلة',
-  hints: 'التلميحات',
-  theory: 'النظرية',
-  task: 'التمرين',
-  feedback: 'التغذية الراجعة',
-}

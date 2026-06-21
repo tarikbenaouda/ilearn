@@ -1,6 +1,4 @@
-import { useLessonContext, SECTION_LABELS } from './LessonContext'
-
-const SECTIONS = ['problem', 'hints', 'theory', 'task', 'feedback']
+import { useLessonContext } from './LessonContext'
 
 export function Outline() {
   const { activeSection, taskSubmitted, data } = useLessonContext()
@@ -17,13 +15,13 @@ export function Outline() {
         </h2>
         <div className="h-1.5 w-10 bg-gradient-to-r from-violet-400 to-fuchsia-400 rounded-full mt-3"></div>
       </div>
-      {SECTIONS.map((id) => {
-        const isActive = activeSection === id
-        const isDisabled = id === 'feedback' && !taskSubmitted
+      {data.blocks.filter(b => b.header).map((block) => {
+        const isActive = activeSection === block.id
+        const isDisabled = block.type === 'feedback' && !taskSubmitted
         return (
           <button
-            key={id}
-            onClick={() => !isDisabled && scrollTo(id)}
+            key={block.id}
+            onClick={() => !isDisabled && scrollTo(block.id)}
             disabled={isDisabled}
             className={`
               w-full text-right px-4 py-2 text-sm transition-all duration-200 rounded-none
@@ -35,7 +33,7 @@ export function Outline() {
               ${isDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}
             `}
           >
-            {SECTION_LABELS[id]}
+            {block.header}
           </button>
         )
       })}

@@ -1,58 +1,31 @@
 {
-  "id": "matrices",
-  "label": "المصفوفات",
-  "level": 3,
-  "problem": {
-    "scenario": "تنتج شركتان نوعين من المنتجات. شركة $A$ تنتج $[3 \\text{ طن سكر}, 5 \\text{ طن قهوة}]$ والشركة $B$ تنتج $[4 \\text{ طن سكر}, 2 \\text{ طن قهوة}]$. كيف نحسب الإنتاج الكلي للشركتين؟ وإذا تضاعف إنتاج الشركتين كم يصبح؟",
-    "hints": [
-      "يمكن تمثيل الإنتاج كمصفوفتين: $A = \\begin{pmatrix} 3 \\\\ 5 \\end{pmatrix}$، $B = \\begin{pmatrix} 4 \\\\ 2 \\end{pmatrix}$.",
-      "الإنتاج الكلي: $A + B = \\begin{pmatrix} 7 \\\\ 7 \\end{pmatrix}$.",
-      "إذا تضاعف: $2(A+B) = \\begin{pmatrix} 14 \\\\ 14 \\end{pmatrix}$."
-    ]
-  },
-  "theory": {
-    "sections": [
-      {
-        "id": "matrix-def",
-        "title": "تعريف المصفوفة",
-        "content": "المصفوفة هي ترتيب مستطيل للأعداد في صفوف وأعمدة. مصفوفة $m \\times n$ لها $m$ صفًا و$n$ عمودًا. العنصر $a_{ij}$ في الصف $i$ والعمود $j$.",
-        "example": "$$A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix} \\quad \\text{(مصفوفة } 2 \\times 3 \\text{)}$$"
-      },
-      {
-        "id": "matrix-ops",
-        "title": "العمليات على المصفوفات",
-        "content": "الجمع والطرح: نجمع العناصر المقابلة (يشترط تطابق الأبعاد). الضرب بعدد: نضرب كل عنصر في العدد. الضرب بمصفوفة: عنصر الصف $i$ والعمود $j$ في الناتج = حاصل ضرب الصف $i$ في العمود $j$.",
-        "example": "$$\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} \\times \\begin{pmatrix} 5 \\\\ 6 \\end{pmatrix} = \\begin{pmatrix} 1(5)+2(6) \\\\ 3(5)+4(6) \\end{pmatrix} = \\begin{pmatrix} 17 \\\\ 39 \\end{pmatrix}$$"
-      },
-      {
-        "id": "determinant-inverse",
-        "title": "المحدد والمصفوفة العكسية",
-        "content": "محدد المصفوفة $2 \\times 2$: $$\\det\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc$$ المصفوفة العكسية: $$A^{-1} = \\frac{1}{\\det A} \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$$",
-        "example": "$$A = \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix} \\Rightarrow \\det A = 6-5=1 \\Rightarrow A^{-1} = \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}$$"
-      }
-    ]
-  },
-  "mcq": {
-    "question": "ما ناتج $\\begin{pmatrix} 1 & 2 \\\\ 0 & 3 \\end{pmatrix} + \\begin{pmatrix} 4 & 0 \\\\ 1 & -1 \\end{pmatrix}$؟",
-    "choices": [
-      {
-        "id": "a",
-        "text": "$\\begin{pmatrix} 5 & 2 \\\\ 1 & 2 \\end{pmatrix}$"
-      },
-      {
-        "id": "b",
-        "text": "$\\begin{pmatrix} 4 & 0 \\\\ 0 & -3 \\end{pmatrix}$"
-      },
-      {
-        "id": "c",
-        "text": "$\\begin{pmatrix} 5 & 0 \\\\ 1 & 2 \\end{pmatrix}$"
-      },
-      {
-        "id": "d",
-        "text": "$\\begin{pmatrix} 5 & 2 \\\\ 2 & 2 \\end{pmatrix}$"
-      }
-    ],
-    "correct": "a",
-    "explanation": "$$\\begin{pmatrix} 1+4 & 2+0 \\\\ 0+1 & 3+(-1) \\end{pmatrix} = \\begin{pmatrix} 5 & 2 \\\\ 1 & 2 \\end{pmatrix}$$"
-  }
+  "conceptId": "matrices",
+  "title": "المصفوفات",
+  "blocks": [
+    {
+      "type": "text",
+      "id": "problem",
+      "header": "المشكلة",
+      "content": "تنتج شركتان نوعين من المنتجات. شركة $A$ تنتج $[3 \\text{ طن سكر}, 5 \\text{ طن قهوة}]$ والشركة $B$ تنتج $[4 \\text{ طن سكر}, 2 \\text{ طن قهوة}]$. كيف نحسب الإنتاج الكلي للشركتين؟ وإذا تضاعف إنتاج الشركتين كم يصبح؟"
+    },
+    {
+      "type": "text",
+      "id": "theory-1",
+      "header": "النظرية",
+      "title": "تعريف المصفوفة",
+      "content": "المصفوفة هي ترتيب مستطيل للأعداد في صفوف وأعمدة. مصفوفة $m \\times n$ لها $m$ صفًا و$n$ عمودًا. العنصر $a_{ij}$ في الصف $i$ والعمود $j$."
+    },
+    {
+      "type": "text",
+      "id": "theory-2",
+      "title": "العمليات على المصفوفات",
+      "content": "الجمع والطرح: نجمع العناصر المقابلة (يشترط تطابق الأبعاد). الضرب بعدد: نضرب كل عنصر في العدد. الضرب بمصفوفة: عنصر الصف $i$ والعمود $j$ في الناتج = حاصل ضرب الصف $i$ في العمود $j$."
+    },
+    {
+      "type": "text",
+      "id": "theory-3",
+      "title": "المحدد والمصفوفة العكسية",
+      "content": "محدد المصفوفة $2 \\times 2$: $$\\det\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc$$ المصفوفة العكسية: $$A^{-1} = \\frac{1}{\\det A} \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$$"
+    }
+  ]
 }
