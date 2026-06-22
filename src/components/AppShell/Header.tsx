@@ -27,9 +27,12 @@ export function Header({ user, onLogout }: HeaderProps) {
     <header className="z-40 h-16 shrink-0 border-b border-border bg-background/95 backdrop-blur-sm">
       <div className="flex h-full items-center justify-between px-4 sm:px-6">
         {/* Logo / brand */}
-        <span className="text-base font-bold tracking-tight text-violet-600 dark:text-violet-400">
+        <a
+          className="text-base font-bold tracking-tight text-violet-600 dark:text-violet-400"
+          href="/dashboard"
+        >
           منصة التعلم
-        </span>
+        </a>
 
         {/* Auth section */}
         {user ? (
