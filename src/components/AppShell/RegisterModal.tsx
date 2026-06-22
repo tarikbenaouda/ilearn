@@ -10,6 +10,13 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { toast } from "sonner"
 import { useAuthQuery } from "@/components/AppShell/queries/useAuth"
 
@@ -20,17 +27,31 @@ export function RegisterModal() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirm, setConfirm] = useState("")
+  const [academicLevel, setAcademicLevel] = useState("")
   const [confirmError, setConfirmError] = useState(false)
   const { register, isRegistering } = useAuthQuery()
 
   const handleSubmit = async () => {
+    if (!firstName.trim() || !lastName.trim()) {
+      toast.error("الرجاء إدخال الاسم واللقب")
+      return
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      toast.error("الرجاء إدخال بريد إلكتروني صحيح")
+      return
+    }
+    if (password.length < 8) {
+      toast.error("يجب أن تتكون كلمة المرور من 8 أحرف على الأقل")
+      return
+    }
     if (password !== confirm) {
       setConfirmError(true)
       toast.error("كلمتا المرور غير متطابقتين")
       return
     }
     setConfirmError(false)
-    await register({ firstName, lastName, email, password })
+    await register({ firstName, lastName, email, password, academicLevel })
     close()
   }
 
@@ -74,6 +95,27 @@ export function RegisterModal() {
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="reg-level" className="mb-1">
+              المستوى الدراسي (اختياري)
+            </Label>
+            <Select value={academicLevel} onValueChange={setAcademicLevel} dir="rtl">
+              <SelectTrigger id="reg-level" className="w-full">
+                <SelectValue placeholder="اختر المستوى الدراسي" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="الخامسة ابتدائي">الخامسة ابتدائي</SelectItem>
+                <SelectItem value="الأولى متوسط">الأولى متوسط</SelectItem>
+                <SelectItem value="الثانية متوسط">الثانية متوسط</SelectItem>
+                <SelectItem value="الثالثة متوسط">الثالثة متوسط</SelectItem>
+                <SelectItem value="الرابعة متوسط">الرابعة متوسط</SelectItem>
+                <SelectItem value="الأولى ثانوي">الأولى ثانوي</SelectItem>
+                <SelectItem value="الُثانية ثانوي">الُثانية ثانوي</SelectItem>
+                <SelectItem value="بكالوريا">بكالوريا</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="flex flex-col gap-2">

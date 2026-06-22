@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { toast } from "sonner"
 import { useAuthQuery } from "@/components/AppShell/queries/useAuth"
 
 export function LoginModal() {
@@ -19,6 +20,15 @@ export function LoginModal() {
   const { login, isLoggingIn } = useAuthQuery()
 
   const handleSubmit = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      toast.error("الرجاء إدخال بريد إلكتروني صحيح")
+      return
+    }
+    if (password.length < 8) {
+      toast.error("يجب أن تتكون كلمة المرور من 8 أحرف على الأقل")
+      return
+    }
     await login({ email, password })
     close()
   }

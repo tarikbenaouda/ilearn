@@ -6,6 +6,7 @@ import { LessonPage } from "@/pages/LessonPage"
 import { HomePage } from "@/pages/HomePage"
 import { AppShell } from "@/components/AppShell"
 import TestPage from "./pages/TestPage"
+import { ProtectedRoute } from "@/components/ProtectedRoute"
 
 export default function App() {
   return (
@@ -13,10 +14,12 @@ export default function App() {
       <AppShell>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/courses/maths" element={<MathPage />} />
-          <Route path="/lessons/:id" element={<LessonPage />} />
-          <Route path="/test" element={<TestPage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/courses/maths" element={<MathPage />} />
+            <Route path="/lessons/:id" element={<LessonPage />} />
+            <Route path="/test" element={<TestPage />} />
+          </Route>
         </Routes>
         <Toaster position="bottom-left" />
       </AppShell>

@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
+import { useEffect, useState } from 'react'
+import { getCurrentUser } from '@/services/auth-api'
+import { useAuthModal } from '@/components/AppShell/AuthModalContext'
 
 // ─── Wave SVG ─────────────────────────────────────────────────────────────────
 
@@ -113,6 +116,26 @@ function StatItem({ value, label }: { value: string; label: string }) {
 
 export function HomePage() {
   const navigate = useNavigate()
+  const { open } = useAuthModal()
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+
+  useEffect(() => {
+    getCurrentUser()
+      .then((user) => {
+        setIsAuthenticated(!!user)
+      })
+      .catch(() => {
+        setIsAuthenticated(false)
+      })
+  }, [])
+
+  const handleStartLearning = () => {
+    if (isAuthenticated) {
+      navigate('/dashboard')
+    } else {
+      open('register')
+    }
+  }
 
   return (
     <div className="overflow-x-hidden bg-white">
@@ -174,7 +197,7 @@ export function HomePage() {
           >
             <Button
               size="lg"
-              onClick={() => navigate('/dashboard')}
+              onClick={handleStartLearning}
               className="
                 bg-white text-violet-700 hover:bg-violet-50
                 font-bold text-base px-8 py-6 rounded-2xl
@@ -338,7 +361,7 @@ export function HomePage() {
           </p>
           <Button
             size="lg"
-            onClick={() => navigate('/dashboard')}
+            onClick={handleStartLearning}
             className="
               bg-white text-violet-700 hover:bg-violet-50
               font-bold text-lg px-10 py-7 rounded-2xl
