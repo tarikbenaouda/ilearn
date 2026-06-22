@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { useEffect, useState } from 'react'
 import { getCurrentUser } from '@/services/auth-api'
 import { useAuthModal } from '@/components/AppShell/AuthModalContext'
 
@@ -117,23 +116,30 @@ function StatItem({ value, label }: { value: string; label: string }) {
 export function HomePage() {
   const navigate = useNavigate()
   const { open } = useAuthModal()
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
 
-  useEffect(() => {
-    getCurrentUser()
-      .then((user) => {
-        setIsAuthenticated(!!user)
-      })
-      .catch(() => {
-        setIsAuthenticated(false)
-      })
-  }, [])
+  const handleStartLearning = async () => {
+    try {
+      const user = await getCurrentUser()
+      if (user) {
+        navigate('/dashboard')
+      } else {
+        open('login')
+      }
+    } catch {
+      open('login')
+    }
+  }
 
-  const handleStartLearning = () => {
-    if (isAuthenticated) {
-      navigate('/dashboard')
-    } else {
-      open('register')
+  const handleTryLesson = async () => {
+    try {
+      const user = await getCurrentUser()
+      if (user) {
+        navigate('/lessons/functions')
+      } else {
+        open('login')
+      }
+    } catch {
+      open('login')
     }
   }
 
@@ -210,7 +216,7 @@ export function HomePage() {
             <Button
               size="lg"
               variant="ghost"
-              onClick={() => navigate('/lessons/0')}
+              onClick={handleTryLesson}
               className="
                 text-white border border-white/30 hover:bg-white/10
                 font-semibold text-base px-8 py-6 rounded-2xl

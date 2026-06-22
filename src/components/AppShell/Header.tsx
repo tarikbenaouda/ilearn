@@ -1,5 +1,7 @@
 import { useAuthModal } from "@/components/AppShell/AuthModalContext"
 import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom"
+import { User } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +24,14 @@ export interface HeaderProps {
 
 export function Header({ user, onLogout }: HeaderProps) {
   const { open } = useAuthModal()
+  const navigate = useNavigate()
+
+  const handleLogoutClick = async () => {
+    if (onLogout) {
+      await onLogout()
+    }
+    navigate("/")
+  }
 
   return (
     <header className="z-40 h-16 shrink-0 border-b border-border bg-background/95 backdrop-blur-sm">
@@ -39,10 +49,9 @@ export function Header({ user, onLogout }: HeaderProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted">
-                {/* Avatar initials */}
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-violet-100 text-xs font-bold text-violet-700 dark:bg-violet-900/50 dark:text-violet-300">
-                  {user.firstName[0]}
-                  {user.lastName[0]}
+                {/* Avatar logo */}
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300">
+                  <User className="h-4 w-4" />
                 </span>
                 <span className="text-foreground">
                   {user.firstName} {user.lastName}
@@ -60,7 +69,7 @@ export function Header({ user, onLogout }: HeaderProps) {
               <DropdownMenuItem>إعدادات الحساب</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                onClick={onLogout}
+                onClick={handleLogoutClick}
                 className="text-red-600 focus:text-red-600 dark:text-red-400 dark:focus:text-red-400"
               >
                 تسجيل الخروج
