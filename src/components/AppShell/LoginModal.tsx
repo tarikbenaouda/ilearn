@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { useAuthModal } from "@/components/AppShell/AuthModalContext"
 import {
   Dialog,
@@ -15,6 +16,7 @@ import { useAuthQuery } from "@/components/AppShell/queries/useAuth"
 
 export function LoginModal() {
   const { view, close, switchTo } = useAuthModal()
+  const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const { login, isLoggingIn } = useAuthQuery()
@@ -29,8 +31,13 @@ export function LoginModal() {
       toast.error("يجب أن تتكون كلمة المرور من 8 أحرف على الأقل")
       return
     }
-    await login({ email, password })
-    close()
+    try {
+      await login({ email, password })
+      close()
+      navigate("/dashboard")
+    } catch (e) {
+      // error handled by react-query
+    }
   }
 
   return (

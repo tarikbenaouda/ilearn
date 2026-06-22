@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { useAuthModal } from "@/components/AppShell/AuthModalContext"
 import {
   Dialog,
@@ -22,6 +23,7 @@ import { useAuthQuery } from "@/components/AppShell/queries/useAuth"
 
 export function RegisterModal() {
   const { view, close, switchTo } = useAuthModal()
+  const navigate = useNavigate()
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
@@ -51,8 +53,13 @@ export function RegisterModal() {
       return
     }
     setConfirmError(false)
-    await register({ firstName, lastName, email, password, academicLevel })
-    close()
+    try {
+      await register({ firstName, lastName, email, password, academicLevel })
+      close()
+      navigate("/dashboard")
+    } catch (e) {
+      // error handled by react-query
+    }
   }
 
   return (
