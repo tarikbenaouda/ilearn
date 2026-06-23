@@ -87,7 +87,6 @@ const concepts: Concept[] = [
 // LOGIC
 // ============================================================
 
-const THRESHOLD = 0.8
 
 const LEVEL_NAMES: Record<number, string> = {
   1: "الحساب الأساسي",
@@ -108,7 +107,7 @@ function getLevelProgress(level: number, doneIds: string[]): number {
   return lvl.filter((c) => doneIds.includes(c.id)).length / lvl.length
 }
 
-function isLevelOpen(level: number, doneIds: string[]): boolean {
+function isLevelOpen(_level: number, _doneIds: string[]): boolean {
   return true
 }
 
