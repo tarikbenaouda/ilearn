@@ -3,7 +3,6 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/noto-sans-arabic";
 @import "mafs/core.css";
-@import "mafs/core.css";
 @import "mafs/font.css";
 
 @custom-variant dark (&:is(.dark *));
