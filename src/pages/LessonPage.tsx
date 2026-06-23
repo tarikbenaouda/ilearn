@@ -1,22 +1,16 @@
-import { Lesson } from "@/components/Lesson"
-import { getLessonById } from "@/data/allLessons"
-import { useParams, Navigate } from "react-router-dom"
+import { Lesson, type LessonData } from "@/components/lesson/Lesson"
+import exampleLesson from "@/components/lesson/example-lesson.json"
+import { useParams } from "react-router-dom"
 
 export function LessonPage() {
   const { id } = useParams()
-  const lesson = getLessonById(id || "")
-
-  if (!lesson) {
-    return <Navigate to="/courses/maths" replace />
-  }
+  
+  // For now, render the example lesson as requested
+  const lesson = exampleLesson as unknown as LessonData
 
   return (
     <div className="min-h-full bg-background">
-      <Lesson
-        key={lesson.conceptId}
-        data={lesson}
-        onComplete={(score) => console.log("score:", score)}
-      />
+      <Lesson lesson={lesson} />
     </div>
   )
 }
