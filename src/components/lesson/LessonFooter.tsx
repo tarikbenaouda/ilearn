@@ -20,91 +20,89 @@ export function LessonFooter({
   isCheckDisabled = false,
 }: LessonFooterProps) {
   return (
-    // Full-width bar — spans both columns, not nested in either panel
-    <div className="h-20 border-t bg-background shrink-0 shadow-[0_-2px_12px_-4px_rgba(0,0,0,0.08)] relative">
+    /**
+     * Floats above the content — takes NO layout space.
+     * absolute + bottom-6 + inset-x-0: pinned to the bottom center of LessonContainer.
+     * pointer-events-none on the wrapper lets clicks pass through the empty area;
+     * pointer-events-auto is restored on the actual interactive elements.
+     */
+    <div className="absolute bottom-6 inset-x-0 flex flex-col items-center gap-2 pointer-events-none z-20">
 
-      {/* Status feedback — floats on the right side (RTL: left edge visually) */}
-      <div className="absolute inset-y-0 right-6 flex items-center">
-        <AnimatePresence mode="wait">
-          {status === 'correct' && (
-            <motion.div
-              key="ok"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              className="flex items-center gap-2 text-green-600 dark:text-green-400 font-bold text-sm"
-            >
-              <div className="bg-green-100 dark:bg-green-900/40 p-1.5 rounded-full">
-                <CheckCircle2 className="w-4 h-4" />
-              </div>
-              عمل رائع!
-            </motion.div>
-          )}
-          {status === 'incorrect' && (
-            <motion.div
-              key="err"
-              initial={{ opacity: 0, x: -4 }}
-              animate={{ opacity: 1, x: [0, -4, 4, -4, 4, 0] }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.35 }}
-              className="flex items-center gap-2 text-red-600 dark:text-red-400 font-bold text-sm"
-            >
-              <div className="bg-red-100 dark:bg-red-900/40 p-1.5 rounded-full">
-                <XCircle className="w-4 h-4" />
-              </div>
-              حاول مرة أخرى
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* Status feedback pill */}
+      <AnimatePresence mode="wait">
+        {status === 'correct' && (
+          <motion.div
+            key="ok"
+            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.95 }}
+            className="pointer-events-auto flex items-center gap-2 bg-green-50 dark:bg-green-900/40 border border-green-200 dark:border-green-700 text-green-700 dark:text-green-400 font-bold text-sm px-4 py-1.5 rounded-full shadow-sm"
+          >
+            <CheckCircle2 className="w-4 h-4 shrink-0" />
+            عمل رائع!
+          </motion.div>
+        )}
+        {status === 'incorrect' && (
+          <motion.div
+            key="err"
+            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, x: [0, -5, 5, -5, 5, 0], scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.95 }}
+            transition={{ duration: 0.35 }}
+            className="pointer-events-auto flex items-center gap-2 bg-red-50 dark:bg-red-900/40 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 font-bold text-sm px-4 py-1.5 rounded-full shadow-sm"
+          >
+            <XCircle className="w-4 h-4 shrink-0" />
+            حاول مرة أخرى
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Buttons — absolutely centered across the full footer width */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <AnimatePresence mode="wait">
-          {status !== 'correct' ? (
-            <motion.div
-              key="check"
-              initial={{ opacity: 0, scale: 0.92 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.92 }}
+      {/* Action buttons */}
+      <AnimatePresence mode="wait">
+        {status !== 'correct' ? (
+          <motion.div
+            key="check"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="pointer-events-auto"
+          >
+            <Button
+              className="min-w-[140px] font-bold h-10 rounded-full bg-violet-600 hover:bg-violet-700 text-white shadow-lg shadow-violet-600/30 disabled:opacity-40 disabled:shadow-none border-none"
+              onClick={onCheck}
+              disabled={isCheckDisabled}
             >
+              تحقق
+            </Button>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="continue"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="pointer-events-auto flex items-center gap-2"
+          >
+            {onWhy && (
               <Button
-                className="min-w-[140px] font-bold h-10 rounded-xl bg-violet-600 hover:bg-violet-700 text-white shadow-md shadow-violet-600/25 disabled:opacity-40"
-                onClick={onCheck}
-                disabled={isCheckDisabled}
+                variant="outline"
+                className="h-10 px-5 rounded-full border-2 border-violet-300 font-bold gap-1.5 text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-900/20 dark:text-violet-400 dark:border-violet-700 shadow-md bg-background"
+                onClick={onWhy}
               >
-                تحقق
+                <HelpCircle className="w-4 h-4" />
+                لماذا؟
               </Button>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="continue"
-              initial={{ opacity: 0, scale: 0.92 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.92 }}
-              className="flex items-center gap-3"
+            )}
+            <Button
+              className="min-w-[140px] font-bold h-10 rounded-full bg-violet-600 hover:bg-violet-700 text-white shadow-lg shadow-violet-600/30 gap-1.5 border-none"
+              onClick={onContinue}
             >
-              {onWhy && (
-                <Button
-                  variant="outline"
-                  className="h-10 px-4 rounded-xl border-2 border-violet-300 font-bold gap-1.5 text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-900/20 dark:text-violet-400 dark:border-violet-700"
-                  onClick={onWhy}
-                >
-                  <HelpCircle className="w-4 h-4" />
-                  لماذا؟
-                </Button>
-              )}
-              <Button
-                className="min-w-[140px] font-bold h-10 rounded-xl bg-violet-600 hover:bg-violet-700 text-white shadow-md shadow-violet-600/25 gap-1.5"
-                onClick={onContinue}
-              >
-                تابع
-                <ArrowLeft className="w-4 h-4" />
-              </Button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+              تابع
+              <ArrowLeft className="w-4 h-4" />
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );

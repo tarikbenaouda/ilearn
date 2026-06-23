@@ -75,6 +75,7 @@ export default function FractionsLesson() {
         <h1 className="text-3xl font-bold text-green-600">تهانينا! 🎉</h1>
         <p className="text-base text-slate-500 dark:text-slate-400">لقد أتممت الدرس بنجاح.</p>
         <Button
+          className="border-none bg-violet-600 hover:bg-violet-700 text-white shadow-lg shadow-violet-600/30 gap-1.5"
           onClick={() => {
             setStepIdx(0);
             setSelected(null);

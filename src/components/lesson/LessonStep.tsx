@@ -19,21 +19,24 @@ export function LessonStep({ rightContent, leftContent, isActive, className }: L
           exit={{ opacity: 0, x: -24 }}
           transition={{ duration: 0.35 }}
           className={cn(
-            // flex-1 fills the space between header and footer, overflow-hidden prevents scroll
-            'flex-1 flex flex-row min-h-0 overflow-hidden',
+            // flex-1 + min-h-0: fills the remaining height between header and bottom edge
+            // Each panel controls its own scroll independently
+            'flex-1 flex flex-row min-h-0',
             className
           )}
         >
-          {/* ── Right Side: Question + Visual ─────────────────── */}
-          <div className="flex-1 flex flex-col justify-center items-center px-8 py-4 border-l border-border/40 bg-slate-50/60 dark:bg-slate-900/40 overflow-hidden">
-            <div className="max-w-lg w-full flex flex-col gap-4">
+          {/* ── Right Side: Question + Visual ──────────────────── */}
+          <div className="flex-1 flex flex-col items-center border-l border-border/40 bg-slate-50/60 dark:bg-slate-900/40 overflow-y-auto">
+            {/* pb-24 leaves room above the floating buttons */}
+            <div className="max-w-lg w-full flex flex-col gap-4 px-8 py-6 pb-24">
               {rightContent}
             </div>
           </div>
 
-          {/* ── Left Side: Choices / Input ──────────────────────── */}
-          <div className="flex-1 flex flex-col justify-center items-center px-8 py-4 bg-background overflow-hidden">
-            <div className="max-w-xs w-full flex flex-col gap-3">
+          {/* ── Left Side: Choices / Input ───────────────────────── */}
+          <div className="flex-1 flex flex-col items-center bg-background overflow-y-auto">
+            {/* pb-24 leaves room above the floating buttons */}
+            <div className="max-w-xs w-full flex flex-col gap-3 px-8 py-6 pb-24">
               {leftContent}
             </div>
           </div>
